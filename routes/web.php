@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,9 +41,17 @@ Route::post('/', [BlogController::class, 'blog_store'])->name('blog_store');
 Route::post('posts/{post}/comments', [BlogController::class, 'post_comment'])->name('post_comment');
 
 
+//dashboard
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-    // Add more dashboard-related routes here
+    // User dashboard route
+    Route::get('/user/dashboard', [DashboardController::class, 'dashboard'])->name('user_dashboard');
+
+    // Profile view route
+    Route::get('/user/profile', [DashboardController::class, 'viewProfile'])->name('user_profile');
 });
 
+//profile pciture
+Route::post('/user/profile/upload-picture', 'UserProfileController@uploadProfilePicture')->name('upload_profile_picture');
+Route::put('/user/profile', 'UserProfileController@updateUserProfile')->name('update_user_profile');
 
+Route::get('/user/profile/edit', 'DashboardController@edit')->name('user_profile_edit');

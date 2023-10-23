@@ -7,17 +7,20 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     public function up()
-{
+    {
     Schema::create('user_profiles', function (Blueprint $table) {
         $table->id();
-        $table->unsignedBigInteger('user_id');
-        $table->string('display_name')->nullable();
+        $table->unsignedBigInteger('user_id')->unique();
+        $table->string('display_name');
         $table->string('profile_picture')->nullable();
         $table->text('bio')->nullable();
-        $table->string('website')->nullable();
+        $table->string('social_links')->nullable();
         $table->timestamps();
+
+        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
     });
-}
+    }
+
 
 
     /**

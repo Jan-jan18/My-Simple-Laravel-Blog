@@ -3,6 +3,7 @@
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\DashboardController;
 
 define('LARAVEL_START', microtime(true));
 
